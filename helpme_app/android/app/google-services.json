@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "116646869026",
+    "firebase_url": "https://helpmetfg.firebaseio.com",
+    "project_id": "helpmetfg",
+    "storage_bucket": "helpmetfg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116646869026:android:5aa2759c14aa8443feb27b",
+        "android_client_info": {
+          "package_name": "br.com.desconsi.helpme_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116646869026-rme1vma1kj3km0ios8kst4nh3l5f17ph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9fOd8X_2SxMcloGeG4nTuDW9997t2dXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116646869026-rme1vma1kj3km0ios8kst4nh3l5f17ph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
