@@ -39,9 +39,9 @@ class _SingUpScreenState extends State<SingUpScreen> {
                 TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(hintText: "Nome Completo"),
-                  validator: (text) {
-                    if (text.isEmpty) return "Nome inválido!";
-                  },
+                  validator: ( text) {
+                    return text.isEmpty ? 'Nome inválido' : null;
+                  }
                 ),
                 SizedBox(height: 16.0),
                 TextFormField(
@@ -49,9 +49,8 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   decoration: InputDecoration(hintText: "E-mail"),
                   keyboardType: TextInputType.emailAddress,
                   validator: (text) {
-                    if (text.isEmpty || !text.contains("@"))
-                      return "E-mail inválido!";
-                  },
+                    return !text.contains("@") ? 'E-mail Inválido' :null;
+                  }
                 ),
                 SizedBox(height: 16.0),
                 TextFormField(
@@ -59,8 +58,8 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   decoration: InputDecoration(hintText: "Senha"),
                   obscureText: true,
                   validator: (text) {
-                    if (text.isEmpty || text.length < 6)
-                      return "Senha Inválida";
+
+                      return text.length < 6 ? 'Senha Inválida':null;
                   },
                 ),
                 SizedBox(height: 16.0),
@@ -68,7 +67,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   controller: _addressController,
                   decoration: InputDecoration(hintText: "Endereço"),
                   validator: (text) {
-                    if (text.isEmpty) return "Endereço Inválida";
+                    return text.isEmpty ? 'Endereço inválido' : null;
                   },
                 ),
                 SizedBox(
@@ -103,7 +102,9 @@ class _SingUpScreenState extends State<SingUpScreen> {
                 ),
               ],
             ),
+
           );
+
         }));
   }
 
