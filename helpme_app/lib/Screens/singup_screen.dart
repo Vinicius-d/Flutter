@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:helpme_app/Models/user_model.dart';
+import 'package:helpme_app/Screens/home_screen.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
 import 'package:scoped_model/scoped_model.dart';
+
+import 'login_screen.dart';
 
 class SingUpScreen extends StatefulWidget {
   @override
@@ -14,11 +17,13 @@ class _SingUpScreenState extends State<SingUpScreen> {
   final _passController = TextEditingController();
   final _addressController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final _pageController = PageController();
     return Scaffold(
+      key: _scaffoldKey,
         appBar: AppBar(
           title: Text("Criar Conta"),
           centerTitle: true,
@@ -108,7 +113,27 @@ class _SingUpScreenState extends State<SingUpScreen> {
         }));
   }
 
-  void _onSuccess() {}
+  void _onSuccess() {
 
-  void _onFail() {}
+    _scaffoldKey.currentState.showSnackBar(
+        SnackBar(content: Text("Usuário criado com Sucesso!"),
+          backgroundColor: Theme.of(context).primaryColor,
+        duration: Duration(seconds: 2),
+        )
+    );
+    Future.delayed(Duration(seconds: 2)).then((_){
+      MaterialPageRoute(builder: (context) => HomePage());
+
+    });
+
+  }
+
+  void _onFail() {
+    _scaffoldKey.currentState.showSnackBar(
+        SnackBar(content: Text("Falha ao criar Usuário!"),
+          backgroundColor: Colors.redAccent,
+          duration: Duration(seconds: 2),
+        )
+    );
+  }
 }
