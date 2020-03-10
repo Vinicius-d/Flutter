@@ -96,7 +96,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                           "address": _addressController.text
                         }; //senha e salva no database di firebase
 
-                        model.singUp(
+                        model.signUp(
                             userData: userData,
                             pass: _passController.text,
                             onSuccess: _onSuccess,

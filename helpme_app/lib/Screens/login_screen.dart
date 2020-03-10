@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Theme.of(context).primaryColor,
                       onPressed: () {
                         if (_formkey.currentState.validate()) {}
-                        model.singIn(
+                        model.signIn(
                           email: _emailController.text,
                           pass: _passController.text,
                           onSuccess: _onSuccess,

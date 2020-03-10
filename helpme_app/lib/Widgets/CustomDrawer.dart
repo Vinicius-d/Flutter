@@ -7,8 +7,10 @@ import 'package:scoped_model/scoped_model.dart';
 
 
 class CustomDrawer extends StatelessWidget {
+
   final PageController  pageController;
   CustomDrawer(this.pageController);
+
   @override
   Widget build(BuildContext context) {
     Widget _buildDrawerBack() => Container(
@@ -74,12 +76,11 @@ class CustomDrawer extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   if(!model.isLoggedIn())
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => LoginScreen())
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(builder: (context)=>LoginScreen())
                                     );
                                   else
-                                    model.singOut();
+                                    model.signOut();
                                 },
                               ),
                             ],

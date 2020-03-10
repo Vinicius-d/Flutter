@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:helpme_app/Screens/cellnumber_sreen.dart';
 import 'package:helpme_app/Screens/home_screen.dart';
 import 'package:helpme_app/Screens/login_screen.dart';
 import 'package:helpme_app/Screens/singup_screen.dart';
@@ -28,7 +29,7 @@ class DrawerTile extends StatelessWidget {
           if(page == 1){
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoginScreen()));
+                MaterialPageRoute(builder: (context) => CellNumber()));
           }
           if(page == 2){
             Navigator.push(
