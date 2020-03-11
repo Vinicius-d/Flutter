@@ -1,5 +1,6 @@
 import 'dart:async';
 
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -11,6 +12,7 @@ class UserModel extends Model {
 
   FirebaseUser firebaseUser;
   Map<String, dynamic> userData = Map();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool isLoading = false;
 
@@ -50,16 +52,17 @@ class UserModel extends Model {
     });
 
   }
-  void saveCell({@required Map<String, dynamic> userData, String numberOne, String numberTwo,String numberThree,
+  Future<void> saveCell ({@required Map<String, dynamic> userData, String numberOne, String numberTwo,String numberThree,
      String numberFour, String numberFive,
-     VoidCallback onSuccess,  VoidCallback onFail}){
+     VoidCallback onSuccess,  VoidCallback onFail}) async {
     String user = firebaseUser.uid;
 
+    final databaseReference = Firestore.instance;
+    databaseReference.collection('users').document(user).collection('string name').document(user).setData({"numberOne":numberOne, "numberTwo":numberTwo,"numberThree":numberThree, "numberFour": numberFour, "numberFive": numberFive});
+   // await Firestore.instance.collection("users").document(user).collection("number").document().setData({"numberOne":numberOne,
+    //  "numberTwo":numberTwo,"numberThree":numberThree, "numberFour": numberFour, "numberFive": numberFive}, merge: true);
 
-   Firestore.instance.collection("users").document(user).setData({"numberOne":numberOne,"numberTwo":numberTwo,"numberThree":numberThree,
-     "numberFour": numberFour, "numberFive": numberFive},merge: true);
-
-
+    _onSuccess();
     notifyListeners();
 
 
@@ -122,6 +125,15 @@ class UserModel extends Model {
       }
     }
     notifyListeners();
+  }
+
+  void _onSuccess() {
+    _scaffoldKey.currentState.showSnackBar(
+        SnackBar(content: Text("Numeros adicionados com Sucesso!"),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+        )
+    );
   }
 
 }
