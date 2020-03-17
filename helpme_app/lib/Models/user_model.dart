@@ -58,7 +58,7 @@ class UserModel extends Model {
     String user = firebaseUser.uid;
 
     final databaseReference = Firestore.instance;
-    databaseReference.collection('users').document(user).collection('string name').document(user).setData({"numberOne":numberOne, "numberTwo":numberTwo,"numberThree":numberThree, "numberFour": numberFour, "numberFive": numberFive});
+    databaseReference.collection('users').document(user).collection('cell number').document(user).setData({"numberOne":numberOne, "numberTwo":numberTwo,"numberThree":numberThree, "numberFour": numberFour, "numberFive": numberFive});
    // await Firestore.instance.collection("users").document(user).collection("number").document().setData({"numberOne":numberOne,
     //  "numberTwo":numberTwo,"numberThree":numberThree, "numberFour": numberFour, "numberFive": numberFive}, merge: true);
 
@@ -67,6 +67,8 @@ class UserModel extends Model {
 
 
   }
+
+
   void signIn({@required String email, @required String pass,
     @required VoidCallback onSuccess, @required VoidCallback onFail}) async {
 
@@ -112,6 +114,7 @@ class UserModel extends Model {
   Future<Null> _saveUserData(Map<String, dynamic> userData) async {
     this.userData = userData;
     await Firestore.instance.collection("users").document(firebaseUser.uid).setData(userData);
+
   }
 
   Future<Null> _loadCurrentUser() async {
@@ -120,8 +123,14 @@ class UserModel extends Model {
     if(firebaseUser != null){
       if(userData["name"] == null){
         DocumentSnapshot docUser =
-        await Firestore.instance.collection("users").document(firebaseUser.uid).get();
+        await Firestore.instance.collection("users").document(firebaseUser.uid).collection("cell number").document(firebaseUser.uid).get();
         userData = docUser.data;
+        print(userData);
+        
+       
+
+
+
       }
     }
     notifyListeners();

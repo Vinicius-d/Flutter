@@ -21,11 +21,13 @@ class MyApp extends StatelessWidget {
       child:  MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'HelpME',
+
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
 
         home: HomePage(),
+
       ),
     );
   }
