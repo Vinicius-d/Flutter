@@ -22,6 +22,7 @@ class _CellNumberState extends State<CellNumber> {
   final _numberFiveController = TextEditingController();
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseUser firebaseUser;
+
   Map<String, dynamic> userData = Map();
 
   @override
@@ -70,7 +71,6 @@ class _CellNumberState extends State<CellNumber> {
                 ),
                 SizedBox(height: 16.0),
                 TextFormField(
-
                   controller: _numberFourController,
                   decoration: InputDecoration(hintText: "${!model.isLoggedIn() ? "": model.userData["numberFour"]}"),
 
