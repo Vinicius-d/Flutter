@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:helpme_app/Models/user_model.dart';
+import 'package:helpme_app/Screens/login_screen.dart';
+import 'package:helpme_app/Screens/singup_screen.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -141,11 +143,12 @@ class HomePage extends StatelessWidget {
                     ),
 
                     onPressed: () async {
+                      FirebaseUser user = await FirebaseAuth.instance.currentUser();
                       List<String> recipents = [];
 
-                      print("TO AQUI MANO!");
-                      FirebaseUser user =
-                          await FirebaseAuth.instance.currentUser();
+
+                       if(user != null){
+                         print("USUSARIO LOGADO");
 
                         final queryN1 = await Firestore.instance
                           .collection('users')
@@ -209,25 +212,40 @@ class HomePage extends StatelessWidget {
                       }
 
                       _sendSMS(message, recipents);
-                      print("mensagens enviadas para: $recipents");
+                       }
+                      if(user == null){
+
+                         showDialog(
+                           context: context,
+                           builder: (BuildContext context) {
+                             // return object of type Dialog
+                             return AlertDialog(
+                               title: new Text("Usuário não Autenticado!"),
+                               content: new Text("Por Favor Logue no sistema para ter acesso a função SOS!"),
+                               actions: <Widget>[
+                                 // usually buttons at the bottom of the dialog
+                                 new FlatButton(
+                                   child: new Text("OK"),
+                                   onPressed: () {
+                                     Navigator.push(
+                                         context,
+                                         MaterialPageRoute(builder: (context) => LoginScreen()));
+                                   },
+                                 ),
+                               ],
+                             );
+                           },
+                         );
+                       }
                     },
                   ),
                 ),
               ),
             ]),
+
+
           ),
-          Container(
-            color: Colors.red,
-          ),
-          Container(
-            color: Colors.red,
-          ),
-          Container(
-            color: Colors.red,
-          ),
-          Container(
-            color: Colors.red,
-          ),
+
         ],
       ),
     );

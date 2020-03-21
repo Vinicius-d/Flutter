@@ -124,6 +124,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
     Future.delayed(Duration(seconds: 2)).then((_){
       MaterialPageRoute(builder: (context) => HomePage());
 
+
     });
 
   }

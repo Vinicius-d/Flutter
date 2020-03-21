@@ -28,8 +28,7 @@ class UserModel extends Model {
   }
 
   void signUp({@required Map<String, dynamic> userData, @required String pass,
-    @required VoidCallback onSuccess, @required VoidCallback onFail}){
-
+    @required VoidCallback onSuccess, @required VoidCallback onFail}) {
     isLoading = true;
     notifyListeners();
 
@@ -44,34 +43,40 @@ class UserModel extends Model {
       onSuccess();
       isLoading = false;
       notifyListeners();
-    }).catchError((e){
+    }).catchError((e) {
       print('O ERRO ao logar E ESSE: $e');
       onFail();
       isLoading = false;
       notifyListeners();
     });
-
   }
-  Future<void> saveCell ({@required Map<String, dynamic> userData, String numberOne, String numberTwo,String numberThree,
-     String numberFour, String numberFive,
-     VoidCallback onSuccess,  VoidCallback onFail}) async {
+
+  Future<void> saveCell({@required Map<String,
+      dynamic> userData, String numberOne, String numberTwo, String numberThree,
+    String numberFour, String numberFive,
+    VoidCallback onSuccess, VoidCallback onFail}) async {
     String user = firebaseUser.uid;
 
     final databaseReference = Firestore.instance;
-    databaseReference.collection('users').document(user).collection('cell number').document(user).setData({"numberOne":numberOne, "numberTwo":numberTwo,"numberThree":numberThree, "numberFour": numberFour, "numberFive": numberFive});
-   // await Firestore.instance.collection("users").document(user).collection("number").document().setData({"numberOne":numberOne,
+    databaseReference.collection('users').document(user).collection(
+        'cell number').document(user).setData({
+      "numberOne": numberOne,
+      "numberTwo": numberTwo,
+      "numberThree": numberThree,
+      "numberFour": numberFour,
+      "numberFive": numberFive
+    });
+    // await Firestore.instance.collection("users").document(user).collection("number").document().setData({"numberOne":numberOne,
     //  "numberTwo":numberTwo,"numberThree":numberThree, "numberFour": numberFour, "numberFive": numberFive}, merge: true);
 
-    _onSuccess();
+    onSuccess();
+    //isLoading = false;
     notifyListeners();
-
-
   }
 
 
   void signIn({@required String email, @required String pass,
     @required VoidCallback onSuccess, @required VoidCallback onFail}) async {
-
     isLoading = true;
     notifyListeners();
 
@@ -84,14 +89,12 @@ class UserModel extends Model {
           onSuccess();
           isLoading = false;
           notifyListeners();
-
-        }).catchError((e){
+        }).catchError((e) {
       print('O ERRO ao logar E ESSE: $e');
       onFail();
       isLoading = false;
       notifyListeners();
     });
-
   }
 
   void signOut() async {
@@ -103,46 +106,35 @@ class UserModel extends Model {
     notifyListeners();
   }
 
-  void recoverPass(String email){
+  void recoverPass(String email) {
     _auth.sendPasswordResetEmail(email: email);
   }
 
-  bool isLoggedIn(){
+  bool isLoggedIn() {
     return firebaseUser != null;
   }
 
   Future<Null> _saveUserData(Map<String, dynamic> userData) async {
     this.userData = userData;
-    await Firestore.instance.collection("users").document(firebaseUser.uid).setData(userData);
-
+    await Firestore.instance.collection("users")
+        .document(firebaseUser.uid)
+        .setData(userData);
   }
 
   Future<Null> _loadCurrentUser() async {
-    if(firebaseUser == null)
+    if (firebaseUser == null)
       firebaseUser = await _auth.currentUser();
-    if(firebaseUser != null){
-      if(userData["name"] == null){
+    if (firebaseUser != null) {
+      if (userData["name"] == null) {
         DocumentSnapshot docUser =
-        await Firestore.instance.collection("users").document(firebaseUser.uid).collection("cell number").document(firebaseUser.uid).get();
+        await Firestore.instance.collection("users").document(firebaseUser.uid)
+            .collection("cell number").document(firebaseUser.uid)
+            .get();
         userData = docUser.data;
         print(userData);
-        
-       
-
-
-
       }
     }
     notifyListeners();
-  }
-
-  void _onSuccess() {
-    _scaffoldKey.currentState.showSnackBar(
-        SnackBar(content: Text("Numeros adicionados com Sucesso!"),
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 2),
-        )
-    );
   }
 
 }

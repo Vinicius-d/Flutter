@@ -13,6 +13,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     Widget _buildDrawerBack() => Container(
       decoration: BoxDecoration(
 
@@ -27,6 +28,7 @@ class CustomDrawer extends StatelessWidget {
       ),
     );
     return Drawer(
+
       child: Stack(
         children: <Widget>[
           ListView(padding: EdgeInsets.zero, children: <Widget>[
@@ -58,7 +60,9 @@ class CustomDrawer extends StatelessWidget {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
+
                               Text(
+
                                 "Olá, ${!model.isLoggedIn() ? "" : model.userData["name"]}",
                                 style: TextStyle(
                                     fontSize: 18.0, fontWeight: FontWeight.bold),
