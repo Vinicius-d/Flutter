@@ -1,6 +1,7 @@
 import 'package:animator/animator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:helpme_app/Models/user_model.dart';
@@ -11,9 +12,8 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 
-String message =
-    "!SOS! Olá você está recebendo essa mensagem pois necessito de sua ajuda nesse momento, entre em contato comigo com URGÊNCIA";
-//String Number="${!model.isLoggedIn() ? "": model.userData["numberOne"]}";
+String message ="!SOS! Olá você está recebendo essa mensagem pois necessito de sua ajuda nesse momento, entre em contato comigo com URGÊNCIA";
+
 
 _launchURL() async {
   const url = 'http://cvvweb.mysuite1.com.br/client/chatan.php?h=&inf=&lfa=';
@@ -24,11 +24,14 @@ _launchURL() async {
   }
 }
 
-void _sendSMS(String message, List<String> recipents) async {
+void _sendSMS(String message, List<String> recipents, context) async {
+
+
   String _result = await sendSMS(message: message, recipients: recipents)
       .catchError((onError) {
     print(onError);
   });
+
   print(_result);
 }
 
@@ -143,12 +146,40 @@ class HomePage extends StatelessWidget {
                     ),
 
                     onPressed: () async {
+
                       FirebaseUser user = await FirebaseAuth.instance.currentUser();
                       List<String> recipents = [];
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return Dialog(
+                            shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+
+                            ),
+                            elevation: 30.0,
+                            backgroundColor: Colors.blue,
+
+
+                            child: new Row(
+                              mainAxisSize: MainAxisSize.max,
+
+                              children: [
+
+                                new CircularProgressIndicator(backgroundColor: Colors.amber,strokeWidth: 10,),
+                                new Text("   ENVIANDO MENSAGEM!"),
+
+                              ],
+                            ),
+                          );
+                        },
+                      );
 
 
                        if(user != null){
                          print("USUSARIO LOGADO");
+
 
                         final queryN1 = await Firestore.instance
                           .collection('users')
@@ -211,7 +242,9 @@ class HomePage extends StatelessWidget {
                         recipents.add(queryN5);
                       }
 
-                      _sendSMS(message, recipents);
+
+                      _sendSMS(message, recipents,context);
+
                        }
                       if(user == null){
 
@@ -231,7 +264,8 @@ class HomePage extends StatelessWidget {
                                          context,
                                          MaterialPageRoute(builder: (context) => LoginScreen()));
                                    },
-                                 ),
+
+                                  ),
                                ],
                              );
                            },
