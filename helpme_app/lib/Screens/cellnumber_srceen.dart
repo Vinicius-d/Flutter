@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:helpme_app/Models/user_model.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
@@ -26,13 +27,16 @@ class _CellNumberState extends State<CellNumber> {
   final _numberThreeController = TextEditingController();
   final _numberFourController = TextEditingController();
   final _numberFiveController = TextEditingController();
-
+    bool _refresh= false;
 
 
 
 
 
   Map<String, dynamic> userData = Map();
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +87,7 @@ class _CellNumberState extends State<CellNumber> {
                 ),
                 SizedBox(height: 16.0),
                 TextFormField(
+                  keyboardType: TextInputType.numberWithOptions(),
 
                   controller: _numberTwoController..text = "${!model.isLoggedIn() ? "": model.userData["numberTwo"]}",
 
@@ -91,6 +96,7 @@ class _CellNumberState extends State<CellNumber> {
                 ),
                 SizedBox(height: 16.0),
                 TextFormField(
+                  keyboardType: TextInputType.numberWithOptions(),
 
                   controller: _numberThreeController..text = "${!model.isLoggedIn() ? "": model.userData["numberThree"]}",
                   decoration: InputDecoration(labelText: "Insira um numero de telefone"),
@@ -98,6 +104,7 @@ class _CellNumberState extends State<CellNumber> {
                 ),
                 SizedBox(height: 16.0),
                 TextFormField(
+                  keyboardType: TextInputType.numberWithOptions(),
 
                   controller: _numberFourController..text = "${!model.isLoggedIn() ? "": model.userData["numberFour"]}",
                   decoration: InputDecoration(labelText: "Insira um numero de telefone"),
@@ -106,6 +113,7 @@ class _CellNumberState extends State<CellNumber> {
                 ),
 
                  TextFormField(
+                   keyboardType: TextInputType.numberWithOptions(),
 
                    controller: _numberFiveController..text = "${!model.isLoggedIn() ? "": model.userData["numberFive"]}",
                   decoration: InputDecoration(labelText: "Insira um numero de telefone"),
@@ -175,25 +183,25 @@ class _CellNumberState extends State<CellNumber> {
 
 
   void _onSuccess() {
+    int number =0;
+    setState(() {
+      print("to no set state");
+      _refresh =true;
 
+    });
     _scaffoldKey.currentState.showSnackBar(
         SnackBar(content: Text("Numero(s) Adicionado(s) com Sucesso!"),
           backgroundColor: Colors.green,
           duration: Duration(seconds: 2),
         )
     );
-    Future.delayed(Duration(seconds: 2)).then((_){
-      Navigator.of(context).push(MaterialPageRoute(
-        builder:
-            (context) => CellNumber(),
-      ),
-      ).then((_) {
-        setState(() {
+    Future.delayed(Duration(seconds: 3)).then((_)async{
 
-        });
-      });
+      Navigator.of(context).pushReplacement(new MaterialPageRoute(
+          builder: (BuildContext context) => new CellNumber()));
 
       });
+
 
 
 

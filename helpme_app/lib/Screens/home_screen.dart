@@ -8,9 +8,12 @@ import 'package:helpme_app/Models/user_model.dart';
 import 'package:helpme_app/Screens/login_screen.dart';
 import 'package:helpme_app/Screens/singup_screen.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_sms/flutter_sms.dart';
+
+import 'OneSingal.dart';
 
 String message ="!SOS! Olá você está recebendo essa mensagem pois necessito de sua ajuda nesse momento, entre em contato comigo com URGÊNCIA";
 
@@ -42,8 +45,14 @@ class HomePage extends StatelessWidget {
 
   final _pageController = PageController();
 
+
+
+
   @override
   Widget build(BuildContext context) {
+    var CallConect = OneSignalConnect();
+
+    CallConect.initOneSignal();
     return Scaffold(
       appBar: GradientAppBar(
         backgroundColorStart: Colors.deepPurpleAccent,
