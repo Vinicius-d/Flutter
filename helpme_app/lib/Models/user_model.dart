@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:helpme_app/Screens/singup_screen.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,7 @@ class UserModel extends Model {
   void signUp({@required Map<String, dynamic> userData, @required String pass,
     @required VoidCallback onSuccess, @required VoidCallback onFail}) {
     isLoading = true;
+    String user = firebaseUser.uid;
     notifyListeners();
 
     _auth.createUserWithEmailAndPassword(
@@ -43,12 +45,19 @@ class UserModel extends Model {
       onSuccess();
       isLoading = false;
       notifyListeners();
+      /*final databaseReference = Firestore.instance;
+      databaseReference.collection('users').document(user).collection(
+          'address').document(user).setData({
+        "City": cidade,
+
+      });*/
     }).catchError((e) {
       print('O ERRO ao logar E ESSE: $e');
       onFail();
       isLoading = false;
       notifyListeners();
     });
+
   }
 
   Future<void> saveCell({@required Map<String,
@@ -68,10 +77,11 @@ class UserModel extends Model {
     });
     // await Firestore.instance.collection("users").document(user).collection("number").document().setData({"numberOne":numberOne,
     //  "numberTwo":numberTwo,"numberThree":numberThree, "numberFour": numberFour, "numberFive": numberFive}, merge: true);
-
+    _loadCurrentUser();
     onSuccess();
     //isLoading = false;
     notifyListeners();
+
   }
 
 

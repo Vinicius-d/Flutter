@@ -36,6 +36,8 @@ dependencies:
   flutter_sms: ^2.0.0+2
   firebase_messaging: ^6.0.13
   onesignal_flutter: ^2.3.4
+  mask_shifter: ^0.1.0
+  via_cep: ^1.0.6
 
 
 

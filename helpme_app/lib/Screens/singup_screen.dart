@@ -3,6 +3,7 @@ import 'package:helpme_app/Models/user_model.dart';
 import 'package:helpme_app/Screens/home_screen.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:via_cep/via_cep.dart';
 
 import 'login_screen.dart';
 
@@ -10,17 +11,45 @@ class SingUpScreen extends StatefulWidget {
   @override
   _SingUpScreenState createState() => _SingUpScreenState();
 }
+String estado;
+String cidade;
+String bairro;
+pegaCep()async{
+  var CEP = new via_cep();
+
+  var result = await CEP.searchCEP('97230000', 'json', '');
+
+  // Sucesso
+  if (CEP.getResponse() == 200) {
+    print('CEP: '+CEP.getCEP());
+    print('Logradouro: '+CEP.getLogradouro());
+    print('Complemento: '+CEP.getComplemento());
+    bairro=(CEP.getBairro());
+    cidade=(CEP.getLocalidade());
+    estado=(CEP.getUF());
+    print('Unidade: '+CEP.getUnidade());
+    print('IBGE '+CEP.getIBGE());
+    print('GIA: '+CEP.getGIA());
+  } else {
+    print('Código de Retorno: '+CEP.getResponse().toString());
+    print('Erro: '+CEP.getBody());
+  }
+}
 
 class _SingUpScreenState extends State<SingUpScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
-  final _addressController = TextEditingController();
+  final _stateController = TextEditingController();
+  final _cityController = TextEditingController();
+  final _cidade = TextEditingController();
+  final _neighborhoodController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    pegaCep();
     final _pageController = PageController();
     return Scaffold(
       key: _scaffoldKey,
@@ -31,6 +60,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
         drawer: CustomDrawer(_pageController),
         body:
         ScopedModelDescendant<UserModel>(builder: (context, child, model) {
+
           if (model.isLoading)
             return Center(
 
@@ -69,12 +99,22 @@ class _SingUpScreenState extends State<SingUpScreen> {
                 ),
                 SizedBox(height: 16.0),
                 TextFormField(
-                  controller: _addressController,
-                  decoration: InputDecoration(hintText: "Endereço"),
+                  controller: _stateController,
+                  decoration: InputDecoration(hintText: "Estado"),
                   validator: (text) {
-                    return text.isEmpty ? 'Endereço inválido' : null;
+                    return text.isEmpty ? 'Estado inválido' : null;
                   },
                 ),
+               /* SizedBox(height: 16.0),
+                TextFormField(
+                  controller: _cidade..text =("$cidade"),
+                  //controller: _cidade,
+                  decoration: InputDecoration(hintText: "Estado"),
+                  validator: (text) {
+                    return text.isEmpty ? 'Estado inválido' : null;
+                  },
+                ),*/
+
                 SizedBox(
                   height: 16.0,
                 ),
@@ -93,7 +133,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                         Map<String, dynamic> userData = {
                           "name": _nameController.text,
                           "email": _emailController.text,
-                          "address": _addressController.text
+                          //"address": _addressController.text
                         }; //senha e salva no database di firebase
 
                         model.signUp(
