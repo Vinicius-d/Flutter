@@ -1,18 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:helpme_app/Models/user_model.dart';
 import 'package:helpme_app/Screens/login_screen.dart';
 import 'package:helpme_app/Title/DrawerTitle.dart';
 import 'package:scoped_model/scoped_model.dart';
-
+String queryName;
+pegaID()async{
+  FirebaseUser user = await FirebaseAuth.instance.currentUser();
+  queryName = await Firestore.instance
+      .collection('users')
+      .document(user.uid)
+      .get()
+      .then((DocumentSnapshot) =>
+  (DocumentSnapshot.data['name'].toString()));
+}
 
 class CustomDrawer extends StatelessWidget {
+
 
   final PageController  pageController;
   CustomDrawer(this.pageController);
 
   @override
   Widget build(BuildContext context) {
+    pegaID();
 
     Widget _buildDrawerBack() => Container(
       decoration: BoxDecoration(
@@ -63,7 +75,7 @@ class CustomDrawer extends StatelessWidget {
 
                               Text(
 
-                                "Olá, ${!model.isLoggedIn() ? "" : model.userData["name"]}",
+                                "Olá, ${!model.isLoggedIn() ? "" : queryName}",
                                 style: TextStyle(
                                     fontSize: 18.0, fontWeight: FontWeight.bold),
                               ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helpme_app/Models/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'Screens/home_screen.dart';
 

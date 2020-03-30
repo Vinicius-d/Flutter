@@ -30,7 +30,7 @@ dependencies:
   flutter_responsive_screen: ^1.0.0
   scoped_model: ^1.0.1
   cloud_firestore: ^0.13.4
-  firebase_auth: ^0.15.5+2
+  firebase_auth: ^0.15.5+3
   firebase_storage: ^3.1.1
   shared_preferences: ^0.5.6+3
   flutter_sms: ^2.0.0+2
@@ -38,6 +38,7 @@ dependencies:
   onesignal_flutter: ^2.3.4
   mask_shifter: ^0.1.0
   via_cep: ^1.0.6
+  flutter_correios: ^1.0.2
 
 
 

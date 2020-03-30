@@ -3,6 +3,8 @@ import 'package:helpme_app/Models/user_model.dart';
 import 'package:helpme_app/Screens/singup_screen.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
 import 'package:scoped_model/scoped_model.dart';
+
+import 'home_screen.dart';
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -15,7 +17,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passController = TextEditingController();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {

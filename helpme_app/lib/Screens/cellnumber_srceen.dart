@@ -1,21 +1,78 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:helpme_app/Models/user_model.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
 import 'package:mask_shifter/mask_shifter.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-import 'home_screen.dart';
+String queryN1;
+String queryN2;
+String queryN3;
+String queryN4;
+String queryN5;
 
+getNumbers()async{
+  FirebaseUser user = await FirebaseAuth.instance.currentUser();
+  queryN1 = await Firestore.instance
+      .collection('users')
+      .document(user.uid)
+      .collection('cell number')
+      .document(user.uid)
+      .get()
+      .then((DocumentSnapshot) =>
+  (DocumentSnapshot.data['numberOne'].toString()));
+
+  queryN2 = await Firestore.instance
+      .collection('users')
+      .document(user.uid)
+      .collection('cell number')
+      .document(user.uid)
+      .get()
+      .then((DocumentSnapshot) =>
+  (DocumentSnapshot.data['numberTwo'].toString()));
+
+  queryN3 = await Firestore.instance
+      .collection('users')
+      .document(user.uid)
+      .collection('cell number')
+      .document(user.uid)
+      .get()
+      .then((DocumentSnapshot) => (DocumentSnapshot
+      .data['numberThree']
+      .toString()));
+
+
+  queryN4 = await Firestore.instance
+      .collection('users')
+      .document(user.uid)
+      .collection('cell number')
+      .document(user.uid)
+      .get()
+      .then((DocumentSnapshot) =>
+  (DocumentSnapshot.data['numberFour'].toString()));
+
+  queryN5 = await Firestore.instance
+      .collection('users')
+      .document(user.uid)
+      .collection('cell number')
+      .document(user.uid)
+      .get()
+      .then((DocumentSnapshot) =>
+  (DocumentSnapshot.data['numberFive'].toString()));
+
+
+}
 class CellNumber extends StatefulWidget {
+
   @override
   _CellNumberState createState() => _CellNumberState();
 }
 
 class _CellNumberState extends State<CellNumber> {
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formkey = GlobalKey<FormState>();
   final _numberOneController = TextEditingController();
@@ -23,12 +80,13 @@ class _CellNumberState extends State<CellNumber> {
   final _numberThreeController = TextEditingController();
   final _numberFourController = TextEditingController();
   final _numberFiveController = TextEditingController();
-  bool _refresh = false;
+
 
   Map<String, dynamic> userData = Map();
 
   @override
   Widget build(BuildContext context) {
+    getNumbers();
     final _pageController = PageController();
 
     return Scaffold(
@@ -56,9 +114,10 @@ class _CellNumberState extends State<CellNumber> {
                         maskONE: "XX-XXXXX-XXXX", maskTWO: "XX-XXX-XXXXXX"),
                   ],
                   keyboardType: TextInputType.numberWithOptions(),
+
                   controller: _numberOneController
                     ..text =
-                        "${!model.isLoggedIn() ? "" : model.userData["numberOne"]}",
+                        "${!model.isLoggedIn() ? "" : queryN1 == null ? "" : queryN1}",
                   decoration: InputDecoration(
                       labelText: "Insira um numero de telefone"),
                 ),
@@ -71,7 +130,7 @@ class _CellNumberState extends State<CellNumber> {
                   keyboardType: TextInputType.numberWithOptions(),
                   controller: _numberTwoController
                     ..text =
-                        "${!model.isLoggedIn() ? "" : model.userData["numberTwo"]}",
+                        "${!model.isLoggedIn() ? "" : queryN2 == null ? "" : queryN2}",
                   decoration: InputDecoration(
                       labelText: "Insira um numero de telefone"),
                 ),
@@ -84,7 +143,7 @@ class _CellNumberState extends State<CellNumber> {
                   keyboardType: TextInputType.numberWithOptions(),
                   controller: _numberThreeController
                     ..text =
-                        "${!model.isLoggedIn() ? "" : model.userData["numberThree"]}",
+                        "${!model.isLoggedIn() ? "" :  queryN3 == null ? "" : queryN3 }",
                   decoration: InputDecoration(
                       labelText: "Insira um numero de telefone"),
                 ),
@@ -97,7 +156,7 @@ class _CellNumberState extends State<CellNumber> {
                   keyboardType: TextInputType.numberWithOptions(),
                   controller: _numberFourController
                     ..text =
-                        "${!model.isLoggedIn() ? "" : model.userData["numberFour"]}",
+                        "${!model.isLoggedIn() ? "" :  queryN4 == null ? "" : queryN4 }",
                   decoration: InputDecoration(
                       labelText: "Insira um numero de telefone"),
                 ),
@@ -109,7 +168,7 @@ class _CellNumberState extends State<CellNumber> {
                   keyboardType: TextInputType.numberWithOptions(),
                   controller: _numberFiveController
                     ..text =
-                        "${!model.isLoggedIn() ? "" : model.userData["numberFive"]}",
+                        "${!model.isLoggedIn() ? "" :  queryN5 == null ? "" : queryN5 }",
                   decoration: InputDecoration(
                       labelText: "Insira um numero de telefone"),
                 ),
@@ -158,7 +217,12 @@ class _CellNumberState extends State<CellNumber> {
       duration: Duration(seconds: 2),
     ));
 
-    Future.delayed(Duration(seconds: 3)).then((_) async {});
+    Future.delayed(Duration(seconds: 3)).then((_) async {
+      await getNumbers();
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CellNumber()));
+    });
   }
 
   void _onFail() {

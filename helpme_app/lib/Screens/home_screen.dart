@@ -4,12 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
-import 'package:helpme_app/Models/user_model.dart';
 import 'package:helpme_app/Screens/login_screen.dart';
-import 'package:helpme_app/Screens/singup_screen.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 
