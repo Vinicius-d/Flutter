@@ -39,6 +39,7 @@ dependencies:
   mask_shifter: ^0.1.0
   via_cep: ^1.0.6
   flutter_correios: ^1.0.2
+  async_loader: ^0.1.2
 
 
 

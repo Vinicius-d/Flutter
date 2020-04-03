@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:helpme_app/Screens/cellnumber_srceen.dart';
 import 'package:helpme_app/Screens/login_screen.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,7 +34,9 @@ void _sendSMS(String message, List<String> recipents, context) async {
 
   print(_result);
 }
+espera(){
 
+}
 class HomePage extends StatelessWidget {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -48,17 +51,24 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var CallConect = OneSignalConnect();
 
+
+
     CallConect.initOneSignal();
+
     return Scaffold(
+
       appBar: GradientAppBar(
         backgroundColorStart: Colors.deepPurpleAccent,
         backgroundColorEnd: Colors.lightBlue,
       ),
       drawer: CustomDrawer(_pageController),
+
       body: Column(
+
         children: <Widget>[
           Padding(padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0)),
           Row(
+
             children: <Widget>[
               Padding(padding: EdgeInsets.all(5.0)),
               FlatButton(

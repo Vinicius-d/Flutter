@@ -6,7 +6,7 @@ import 'package:helpme_app/Screens/login_screen.dart';
 import 'package:helpme_app/Title/DrawerTitle.dart';
 import 'package:scoped_model/scoped_model.dart';
 String queryName;
-pegaID()async{
+/*pegaID()async{
   FirebaseUser user = await FirebaseAuth.instance.currentUser();
   queryName = await Firestore.instance
       .collection('users')
@@ -14,7 +14,7 @@ pegaID()async{
       .get()
       .then((DocumentSnapshot) =>
   (DocumentSnapshot.data['name'].toString()));
-}
+}*/
 
 class CustomDrawer extends StatelessWidget {
 
@@ -24,7 +24,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    pegaID();
+    /*pegaID();*/
 
     Widget _buildDrawerBack() => Container(
       decoration: BoxDecoration(
@@ -75,7 +75,7 @@ class CustomDrawer extends StatelessWidget {
 
                               Text(
 
-                                "Olá, ${!model.isLoggedIn() ? "" : queryName}",
+                                "Olá, ${!model.isLoggedIn() ? "" :model.userData["name"]}",
                                 style: TextStyle(
                                     fontSize: 18.0, fontWeight: FontWeight.bold),
                               ),

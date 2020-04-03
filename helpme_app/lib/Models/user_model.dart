@@ -17,6 +17,9 @@ class UserModel extends Model {
   //final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool isLoading = false;
+  bool isLoadingCell = false;
+  //bool issavedingCell = false;
+
 
 
   static UserModel of(BuildContext context) =>
@@ -85,7 +88,7 @@ class UserModel extends Model {
       firebaseUser = authResult.user;*/
 
       await _saveUserData(userData);
-      print("salvei o usuario, agora vou chamar o cep");
+
       anddress(cep);
       onSuccess();
       isLoading = false;
@@ -105,6 +108,9 @@ class UserModel extends Model {
       dynamic> userData, String numberOne, String numberTwo, String numberThree,
     String numberFour, String numberFive,
     VoidCallback onSuccess, VoidCallback onFail}) async {
+
+
+     notifyListeners();
     String user = firebaseUser.uid;
 
     final databaseReference = Firestore.instance;
@@ -120,6 +126,7 @@ class UserModel extends Model {
     //  "numberTwo":numberTwo,"numberThree":numberThree, "numberFour": numberFour, "numberFive": numberFive}, merge: true);
 
     onSuccess();
+
     //isLoading = false;
     notifyListeners();
     _loadCurrentUserCell();
@@ -140,7 +147,7 @@ class UserModel extends Model {
           firebaseUser = authResult.user;
 
           await _loadCurrentUser();
-
+          Future.delayed(Duration(seconds: 3));
           onSuccess();
           isLoading = false;
           notifyListeners();

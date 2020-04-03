@@ -133,7 +133,10 @@ class _SingUpScreenState extends State<SingUpScreen> {
         )
     );
     Future.delayed(Duration(seconds: 2)).then((_){
-      Navigator.of(context).pop();
+
+      Navigator.of(context).pop(
+        CircularProgressIndicator()
+      );
 
 
     });

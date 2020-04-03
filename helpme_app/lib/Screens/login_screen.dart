@@ -132,8 +132,17 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onSuccess() {
+    _scaffoldKey.currentState.showSnackBar(
+        SnackBar(content: Text("Usuário autenticado com sucesso!"),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 3),
+        )
+    );
+    Future.delayed(const Duration(seconds: 2), () {
     Navigator.of(context).pop();
+    });
   }
+
 
   void _onFail() {
     _scaffoldKey.currentState.showSnackBar(
