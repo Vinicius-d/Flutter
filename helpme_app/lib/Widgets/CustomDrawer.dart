@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:helpme_app/Models/user_model.dart';
 import 'package:helpme_app/Screens/login_screen.dart';
 import 'package:helpme_app/Title/DrawerTitle.dart';
@@ -25,6 +26,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /*pegaID();*/
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
     Widget _buildDrawerBack() => Container(
       decoration: BoxDecoration(
@@ -42,9 +44,12 @@ class CustomDrawer extends StatelessWidget {
     return Drawer(
 
       child: Stack(
+
         children: <Widget>[
+
           ListView(padding: EdgeInsets.zero, children: <Widget>[
             Container(
+                color: Color.fromRGBO(119, 1, 108, 1),
                 margin: EdgeInsets.only(bottom: 16.0),
                 padding: EdgeInsets.fromLTRB(0.0, 16.0, 16.0, 8),
                 height: 170.0,
@@ -58,7 +63,7 @@ class CustomDrawer extends StatelessWidget {
                         "Ajude-se",
                         style: TextStyle(
                           fontSize: 34.0,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.bold,color: Colors.white
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -77,7 +82,7 @@ class CustomDrawer extends StatelessWidget {
 
                                 "Olá, ${!model.isLoggedIn() ? "" :model.userData["name"]}",
                                 style: TextStyle(
-                                    fontSize: 18.0, fontWeight: FontWeight.bold),
+                                    fontSize: 18.0, fontWeight: FontWeight.bold,color: Colors.white),
                               ),
                               SizedBox(height: 16.0),
                               GestureDetector(
@@ -85,7 +90,7 @@ class CustomDrawer extends StatelessWidget {
                                   !model.isLoggedIn() ?
                                   "Entre ou Cadastre-se": "Sair",
                                   style: TextStyle(
-                                    color: Theme.of(context).primaryColor,
+                                    color:  Color.fromRGBO(243, 181, 247, 1),
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),

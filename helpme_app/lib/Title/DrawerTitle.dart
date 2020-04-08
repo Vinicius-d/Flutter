@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:helpme_app/Screens/cellnumber_srceen.dart';
 import 'package:helpme_app/Screens/home_screen.dart';
+import 'package:helpme_app/Screens/message.dart';
 import 'package:helpme_app/Screens/singup_screen.dart';
 class DrawerTile extends StatelessWidget {
   final IconData icon;
@@ -9,11 +10,12 @@ class DrawerTile extends StatelessWidget {
   final int page;
   DrawerTile(this.icon, this.text, this.controller, this.page);
 
-
   @override
   Widget build(BuildContext context) {
 
+
     return Material(
+
       color: Colors.transparent,
       child: InkWell(
         onTap: (){
@@ -33,7 +35,7 @@ class DrawerTile extends StatelessWidget {
           if(page == 2){
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SingUpScreen()));
+                MaterialPageRoute(builder: (context) => CarouselDemo()));
           }
         },
         child: Container(

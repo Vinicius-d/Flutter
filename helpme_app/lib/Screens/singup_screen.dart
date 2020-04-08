@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:helpme_app/Models/user_model.dart';
 import 'package:helpme_app/Screens/home_screen.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
+import 'package:mask_shifter/mask_shifter.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class SingUpScreen extends StatefulWidget {
@@ -74,6 +75,10 @@ class _SingUpScreenState extends State<SingUpScreen> {
                 SizedBox(height: 16.0),
                 TextFormField(
                   controller: _cepController,
+                  inputFormatters: [
+                    MaskedTextInputFormatterShifter(
+                        maskONE: "XXXXX-XXX", maskTWO: "XXXXXXXXX"),
+                  ],
                   decoration: InputDecoration(hintText: "CEP"),
                   keyboardType: TextInputType.numberWithOptions(),
                   validator: (text){

@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:animator/animator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:helpme_app/Screens/cellnumber_srceen.dart';
 import 'package:helpme_app/Screens/login_screen.dart';
@@ -21,6 +24,7 @@ _launchURL() async {
     await launch(url);
   } else {
     throw 'Could not launch $url';
+
   }
 }
 
@@ -34,10 +38,11 @@ void _sendSMS(String message, List<String> recipents, context) async {
 
   print(_result);
 }
-espera(){
 
-}
+
 class HomePage extends StatelessWidget {
+
+
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   FirebaseUser firebaseUser;
@@ -49,25 +54,30 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     var CallConect = OneSignalConnect();
-
-
-
     CallConect.initOneSignal();
 
+
     return Scaffold(
+      backgroundColor: Color.fromRGBO(200, 178, 214, 1),
+
 
       appBar: GradientAppBar(
-        backgroundColorStart: Colors.deepPurpleAccent,
-        backgroundColorEnd: Colors.lightBlue,
+        title: Text("Helpme app"),centerTitle: true,
+        backgroundColorStart: Color.fromRGBO(165, 88, 157, 1),
+        backgroundColorEnd: Color.fromRGBO(119, 1, 108, 1),
       ),
       drawer: CustomDrawer(_pageController),
 
       body: Column(
 
+
         children: <Widget>[
-          Padding(padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0)),
+
+          Padding(padding: EdgeInsets.symmetric(vertical: 50, horizontal: 0)),
           Row(
+
 
             children: <Widget>[
               Padding(padding: EdgeInsets.all(5.0)),
@@ -75,13 +85,14 @@ class HomePage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(100.0),
                     side: BorderSide(
-                        color: Colors.black87,
+                        color: Colors.transparent,
+                        //Color.fromRGBO(127, 5, 118, 1),
                         style: BorderStyle.solid,
                         width: 10)),
 
                 //borda do botão
 
-                color: Colors.cyanAccent,
+                color: Color.fromRGBO(165, 88, 157, 1),
                 textColor: Colors.white,
 
                 padding: EdgeInsets.all(57.0),
@@ -99,18 +110,19 @@ class HomePage extends StatelessWidget {
                   _launchURL();
                 },
               ),
-              Padding(padding: EdgeInsets.all(5.0)),
+              Padding(padding: EdgeInsets.all(22.0)),
               FlatButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(100.0),
                     side: BorderSide(
-                        color: Colors.black87,
+                        color: Colors.transparent,
+                        //Color.fromRGBO(127, 5, 118, 1),
                         style: BorderStyle.solid,
                         width: 10)),
 
                 //borda do botão
 
-                color: Colors.cyanAccent,
+                color: Color.fromRGBO(165, 88, 157, 1),
                 textColor: Colors.white,
                 padding: EdgeInsets.all(57.0),
                 splashColor: Colors.yellow,
@@ -146,18 +158,18 @@ class HomePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(100.0),
                         side: BorderSide(
-                            color: Colors.black87,
+                            color:  Color.fromRGBO(210, 32, 4, 1),
                             style: BorderStyle.solid,
                             width: 5)),
-                    color: Colors.red,
+                    color: Color.fromRGBO(210, 32, 4, 1),
                     textColor: Colors.white,
-                    padding: EdgeInsets.all(50.0),
+                    padding: EdgeInsets.all(37.0),
                     splashColor: Colors.yellow,
 
                     child: Text(
                       "SOS",
-                      style:
-                          TextStyle(fontSize: 20, fontStyle: FontStyle.normal),
+                      style: GoogleFonts.oswald(fontSize: 30),
+                          //TextStyle(fontSize: 20, fontStyle: FontStyle.normal) ,
                     ),
 
                     onPressed: () async {

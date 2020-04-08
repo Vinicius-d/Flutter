@@ -40,6 +40,8 @@ dependencies:
   via_cep: ^1.0.6
   flutter_correios: ^1.0.2
   async_loader: ^0.1.2
+  carousel_slider: ^1.4.1
+  google_fonts: ^0.3.8
 
 
 
