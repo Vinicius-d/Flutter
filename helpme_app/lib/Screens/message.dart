@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
 
 final List<String> imgList = [
@@ -9,7 +10,6 @@ final List<String> imgList = [
   'https://www.42frases.com.br/wp-content/uploads/2019/09/nao-importa-onde-e-nem.png',
   'https://static.mundodasmensagens.com/upload/textos/a/s/as-vezes-a-tristeza-invade-o-meu-coracao-sem-aviso-vem-mas-com-fo-kdbvz-cxl.jpg',
   'https://www.belasmensagens.com.br/wp-content/uploads/2017/11/se-hoje-esta-dificil.jpg',
-
 ];
 
 //void main() => runApp(CarouselDemo());
@@ -88,11 +88,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
           });
         },
       ),
-
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: map<Widget>(
-
           imgList,
           (index, url) {
             return Container(
@@ -104,11 +102,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
                   color: _current == index
                       ? Color.fromRGBO(0, 0, 0, 0.9)
                       : Color.fromRGBO(0, 0, 0, 0.4)),
-
             );
-
           },
-
         ),
       ),
     ]);
@@ -131,7 +126,13 @@ class CarouselDemo extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: Text('Mensagens para Você'), centerTitle: true,),
+        backgroundColor: Color.fromRGBO(252, 239, 246, 1),
+        appBar: GradientAppBar(
+          title: Text('Mensagens para Você'),
+          centerTitle: true,
+          backgroundColorStart: Color.fromRGBO(165, 88, 157, 1),
+          backgroundColorEnd: Color.fromRGBO(119, 1, 108, 1),
+        ),
         drawer: CustomDrawer(_pageController),
         body: ListView(
           children: <Widget>[

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:helpme_app/Models/user_model.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
 import 'package:mask_shifter/mask_shifter.dart';
@@ -73,7 +74,7 @@ Future<Null> getNumbers() async {
       .then((DocumentSnapshot) =>
           (DocumentSnapshot.data['numberFive'].toString()));
   isLoadingCell = false;
-  print(" terminei a busca agora to : $isLoadingCell");
+
 
 }
 teste1(){
@@ -108,17 +109,20 @@ teste1();
 
 
 
-    print("tocando bala, status: $isLoadingCell");
+
 
 
     final _pageController = PageController();
     return Scaffold(
-
+        backgroundColor: Color.fromRGBO(252, 239, 246, 1),
         key: _scaffoldKey,
-        appBar: AppBar(
+        appBar: GradientAppBar(
           title: Text("Gerenciar Números de Telefone"),
           centerTitle: true,
+          backgroundColorStart: Color.fromRGBO(165, 88, 157, 1),
+          backgroundColorEnd: Color.fromRGBO(119, 1, 108, 1),
         ),
+
         drawer: CustomDrawer(_pageController),
         body: ScopedModelDescendant<UserModel>(builder: (context, child, model) {
 
@@ -204,9 +208,11 @@ teste1();
                     child: Text("Salvar",
                         style: TextStyle(
                           fontSize: 18.0,
-                        )),
+
+                        )
+                    ),
                     textColor: Colors.white,
-                    color: Theme.of(context).primaryColor,
+                    color: Color.fromRGBO(165, 88, 157, 1),
                     onPressed: () {
                       Map<String, dynamic> userData = {
                         "NumberOne": _numberOneController.text,

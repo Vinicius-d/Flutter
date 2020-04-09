@@ -26,7 +26,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /*pegaID();*/
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+
 
     Widget _buildDrawerBack() => Container(
       decoration: BoxDecoration(

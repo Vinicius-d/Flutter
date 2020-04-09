@@ -1,10 +1,10 @@
 import 'dart:ui';
-
 import 'package:animator/animator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:helpme_app/Screens/cellnumber_srceen.dart';
@@ -12,11 +12,12 @@ import 'package:helpme_app/Screens/login_screen.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_sms/flutter_sms.dart';
-
 import 'OneSingal.dart';
 
-String message ="!SOS! Olá você está recebendo essa mensagem pois necessito de sua ajuda nesse momento, entre em contato comigo com URGÊNCIA";
-
+String message ="!SOS! Olá você está recebendo essa mensagem pois necessito de sua ajuda nesse momento, entre em contato comigo com URGÊNCIA, essa é minha localização: $Local";
+String longitude="";
+String latitude="";
+String Local ="https://www.google.com.br/maps/@$latitude,$longitude";
 
 _launchURL() async {
   const url = 'http://cvvweb.mysuite1.com.br/client/chatan.php?h=&inf=&lfa=';
@@ -28,6 +29,8 @@ _launchURL() async {
   }
 }
 
+
+
 void _sendSMS(String message, List<String> recipents, context) async {
 
 
@@ -38,7 +41,24 @@ void _sendSMS(String message, List<String> recipents, context) async {
 
   print(_result);
 }
+_getCurrentLocation() async{
+  Position _currentPosition;
+  print("entrei na localziacao");
 
+  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+ await geolocator
+      .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+      .then((Position position) {
+
+      _currentPosition = position;
+      print("LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}");
+      latitude=" ${_currentPosition.latitude}";
+      longitude="${_currentPosition.longitude}/";
+  }).catchError((e) {
+    print(e);
+  });
+}
 
 class HomePage extends StatelessWidget {
 
@@ -60,7 +80,7 @@ class HomePage extends StatelessWidget {
 
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(200, 178, 214, 1),
+      backgroundColor: Color.fromRGBO(252, 239, 246, 1),
 
 
       appBar: GradientAppBar(
@@ -81,7 +101,8 @@ class HomePage extends StatelessWidget {
 
             children: <Widget>[
               Padding(padding: EdgeInsets.all(5.0)),
-              FlatButton(
+              FlatButton( 
+
                 shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(100.0),
                     side: BorderSide(
@@ -92,17 +113,20 @@ class HomePage extends StatelessWidget {
 
                 //borda do botão
 
-                color: Color.fromRGBO(165, 88, 157, 1),
+                color: Color.fromRGBO(134, 203, 232, 1),
+
                 textColor: Colors.white,
 
-                padding: EdgeInsets.all(57.0),
+                padding: EdgeInsets.all(47.0),
                 splashColor: Colors.green,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(
                       Icons.chat,
-                      size: 50,
+                      size: 70,
+                      color: Color.fromRGBO(1, 84, 164, 1),
+
                     ),
                   ],
                 ),
@@ -122,16 +146,17 @@ class HomePage extends StatelessWidget {
 
                 //borda do botão
 
-                color: Color.fromRGBO(165, 88, 157, 1),
+                color: Color.fromRGBO(134, 203, 232, 1),
                 textColor: Colors.white,
-                padding: EdgeInsets.all(57.0),
+                padding: EdgeInsets.all(47.0),
                 splashColor: Colors.yellow,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(
                       Icons.call,
-                      size: 50,
+                      size: 70,
+                      color: Color.fromRGBO(1, 84, 164, 1),
                     ),
                   ],
                 ),
@@ -141,7 +166,17 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          Padding(padding: EdgeInsets.all(80.0)),
+          Padding(padding: EdgeInsets.all(10.0)),
+          Row(mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(padding: EdgeInsets.fromLTRB(50, 0, 0, 0)),
+                Text("Chat CVV", style: GoogleFonts.oswald(fontSize: 20,color: Color.fromRGBO(1, 84, 164, 1),fontWeight: FontWeight.w700),),
+                Padding(padding: EdgeInsets.fromLTRB(120, 0, 0, 0)),
+                Text("Chamada CVV",style: GoogleFonts.oswald(fontSize: 20,color:  Color.fromRGBO(1, 84, 164, 1),fontWeight: FontWeight.w700)),
+              ]
+
+          ),
+          Padding(padding: EdgeInsets.all(60.0)),
           Container(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: <
@@ -269,7 +304,7 @@ class HomePage extends StatelessWidget {
                         recipents.add(queryN5);
                       }
 
-
+                        await _getCurrentLocation();
                       _sendSMS(message, recipents,context);
 
                        }
