@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
@@ -14,10 +15,12 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 import 'OneSingal.dart';
 
-String message ="!SOS! Olá você está recebendo essa mensagem pois necessito de sua ajuda nesse momento, entre em contato comigo com URGÊNCIA, essa é minha localização: $Local";
+String message ="!SOS! Olá você está recebendo essa mensagem pois necessito de sua ajuda nesse momento, entre em contato comigo com URGÊNCIA, essa é minha localização:";
 String longitude="";
 String latitude="";
-String Local ="https://www.google.com.br/maps/@$latitude,$longitude";
+
+//String Local ="https://www.google.com.br/maps/@$latitude,$longitude";
+String local ='https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
 
 _launchURL() async {
   const url = 'http://cvvweb.mysuite1.com.br/client/chatan.php?h=&inf=&lfa=';
@@ -41,6 +44,15 @@ void _sendSMS(String message, List<String> recipents, context) async {
 
   print(_result);
 }
+Future<void> share() async {
+  await FlutterShare.share(
+      title: 'Example share',
+      text: '$message',
+      linkUrl: '$local',
+      chooserTitle: 'Example Chooser Title'
+  );
+}
+
 _getCurrentLocation() async{
   Position _currentPosition;
   print("entrei na localziacao");
@@ -53,8 +65,8 @@ _getCurrentLocation() async{
 
       _currentPosition = position;
       print("LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}");
-      latitude=" ${_currentPosition.latitude}";
-      longitude="${_currentPosition.longitude}/";
+      latitude="${_currentPosition.latitude}";
+      longitude="${_currentPosition.longitude}";
   }).catchError((e) {
     print(e);
   });
@@ -305,7 +317,9 @@ class HomePage extends StatelessWidget {
                       }
 
                         await _getCurrentLocation();
-                      _sendSMS(message, recipents,context);
+                      print("URL FINAL: $local");
+                         share();
+                      //_sendSMS(message, recipents,context);
 
                        }
                       if(user == null){

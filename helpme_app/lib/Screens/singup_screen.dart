@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:helpme_app/Models/user_model.dart';
 import 'package:helpme_app/Screens/home_screen.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
@@ -27,9 +28,11 @@ class _SingUpScreenState extends State<SingUpScreen> {
     //final _pageController = PageController();
     return Scaffold(
       key: _scaffoldKey,
-        appBar: AppBar(
+        appBar: GradientAppBar(
           title: Text("Criar Conta"),
           centerTitle: true,
+          backgroundColorStart: Color.fromRGBO(165, 88, 157, 1),
+          backgroundColorEnd: Color.fromRGBO(119, 1, 108, 1),
         ),
         //drawer: CustomDrawer(_pageController),
         body:
@@ -96,7 +99,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                           fontSize: 18.0,
                         )),
                     textColor: Colors.white,
-                    color: Theme.of(context).primaryColor,
+                    color: Color.fromRGBO(165, 88, 157, 1),
                     onPressed: () {
                       if (_formkey.currentState.validate()) {
 

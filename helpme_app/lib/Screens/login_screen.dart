@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:helpme_app/Models/user_model.dart';
 import 'package:helpme_app/Screens/singup_screen.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
@@ -21,10 +22,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color.fromRGBO(252, 239, 246, 1),
       key: _scaffoldKey,
-        appBar: AppBar(
+        appBar: GradientAppBar(
           title: Text("Entrar"),
           centerTitle: true,
+          backgroundColorStart: Color.fromRGBO(165, 88, 157, 1),
+          backgroundColorEnd: Color.fromRGBO(119, 1, 108, 1),
           actions: <Widget>[
             FlatButton(
               child: Text(
@@ -112,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontSize: 18.0,
                           )),
                       textColor: Colors.white,
-                      color: Theme.of(context).primaryColor,
+                      color: Color.fromRGBO(165, 88, 157, 1),
                       onPressed: () {
                         if (_formkey.currentState.validate()) {}
                         model.signIn(
