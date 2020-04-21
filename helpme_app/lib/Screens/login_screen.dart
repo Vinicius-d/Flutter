@@ -1,3 +1,4 @@
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:helpme_app/Models/user_model.dart';
@@ -117,7 +118,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           )),
                       textColor: Colors.white,
                       color: Color.fromRGBO(165, 88, 157, 1),
-                      onPressed: () {
+                      onPressed: () async {
+                      if(await DataConnectionChecker().hasConnection == true) {
                         if (_formkey.currentState.validate()) {}
                         model.signIn(
                           email: _emailController.text,
@@ -125,6 +127,31 @@ class _LoginScreenState extends State<LoginScreen> {
                           onSuccess: _onSuccess,
                           onFail: _onFail,
                         );
+                      }
+                      else{
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            // return object of type Dialog
+                            return AlertDialog(
+                              title: new Text("Sem conexão com a internet!"),
+                              content: new Text(
+                                  "Por Favor, Conecte com a internet para Logar!"),
+                              actions: <Widget>[
+                                // usually buttons at the bottom of the dialog
+                                new FlatButton(
+                                  child: new Text("OK"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+
+                      }
                       },
                     ),
                   ),

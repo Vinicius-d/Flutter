@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
 
 final List<String> imgList = [
+
   'https://static.mundodasmensagens.com/upload/textos/n/a/nao-desista-ja-pois-o-caminho-que-leva-ao-sucesso-tem-varias-etap-3nvxJ-w.jpg',
   'https://mensagens.culturamix.com/blog/wp-content/gallery/2_30/frases-para-combater-a-depressao-5.jpg',
   'https://vidadevinicius.files.wordpress.com/2013/07/esforca-te-e-tem-bom-animo.jpg',
@@ -12,13 +14,15 @@ final List<String> imgList = [
   'https://www.belasmensagens.com.br/wp-content/uploads/2017/11/se-hoje-esta-dificil.jpg',
 ];
 
-//void main() => runApp(CarouselDemo());
 
 final Widget placeholder = Container(color: Colors.grey);
 
 final List child = map<Widget>(
+
   imgList,
+
   (index, i) {
+
     return Container(
       margin: EdgeInsets.all(5.0),
       child: ClipRRect(
@@ -58,7 +62,10 @@ final List child = map<Widget>(
 ).toList();
 
 List<T> map<T>(List list, Function handler) {
+
   List<T> result = [];
+
+
   for (var i = 0; i < list.length; i++) {
     result.add(handler(i, list[i]));
   }
@@ -68,16 +75,21 @@ List<T> map<T>(List list, Function handler) {
 
 class CarouselWithIndicator extends StatefulWidget {
   @override
+
   _CarouselWithIndicatorState createState() => _CarouselWithIndicatorState();
+
 }
 
 class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
   int _current = 0;
 
+
   @override
   Widget build(BuildContext context) {
+
     return Column(children: [
       CarouselSlider(
+
         items: child,
         autoPlay: true,
         enlargeCenterPage: true,
@@ -114,6 +126,7 @@ class CarouselDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _pageController = PageController();
+
     //Manually operated Carousel
     final CarouselSlider manualCarouselDemo = CarouselSlider(
       items: child,
@@ -133,7 +146,9 @@ class CarouselDemo extends StatelessWidget {
           backgroundColorStart: Color.fromRGBO(165, 88, 157, 1),
           backgroundColorEnd: Color.fromRGBO(119, 1, 108, 1),
         ),
+
         drawer: CustomDrawer(_pageController),
+
         body: ListView(
           children: <Widget>[
             Padding(
@@ -145,6 +160,8 @@ class CarouselDemo extends StatelessWidget {
           ],
         ),
       ),
+
     );
+
   }
 }
