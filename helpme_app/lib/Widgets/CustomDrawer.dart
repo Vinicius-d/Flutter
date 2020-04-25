@@ -120,6 +120,7 @@ class CustomDrawer extends StatelessWidget {
             DrawerTile(Icons.home,"Início",pageController,0),
             DrawerTile(Icons.add_call,"Numeros SOS",pageController,1),
             DrawerTile(Icons.tag_faces,"Mensagens pra Você",pageController,2),
+            DrawerTile(Icons.tag_faces,"select",pageController,3),
             /*ListTile(
               title: Text('Item 1'),
               onTap: () {

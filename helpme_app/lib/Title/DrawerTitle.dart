@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:helpme_app/Screens/cellnumber_srceen.dart';
 import 'package:helpme_app/Screens/home_screen.dart';
 import 'package:helpme_app/Screens/message.dart';
+import 'package:helpme_app/Screens/select.dart';
 import 'package:helpme_app/Screens/singup_screen.dart';
 class DrawerTile extends StatelessWidget {
   final IconData icon;
@@ -66,6 +67,12 @@ class DrawerTile extends StatelessWidget {
               },
             );
           }
+          }
+
+          if(page == 3){
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Select()));
           }
   },
         child: Container(

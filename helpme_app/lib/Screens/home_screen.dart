@@ -8,23 +8,18 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
-import 'package:helpme_app/Screens/cellnumber_srceen.dart';
 import 'package:helpme_app/Screens/login_screen.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 import 'OneSingal.dart';
 
-String message =
-    "!SOS! Olá você está recebendo essa mensagem pois necessito de sua ajuda nesse momento, entre em contato comigo com URGÊNCIA, essa é minha localização:";
-String messageSMS =
-    "!SOS! Olá você está recebendo essa mensagem pois necessito de sua ajuda nesse momento, entre em contato comigo com URGÊNCIA, essa é minha localização: $local";
+String message = "!SOS! Olá você está recebendo essa mensagem pois necessito de sua ajuda nesse momento, entre em contato comigo com URGÊNCIA, essa é minha localização:";
+String messageSMS = "!SOS! Olá você está recebendo essa mensagem pois necessito de sua ajuda nesse momento, entre em contato comigo com URGÊNCIA, essa é minha localização: $local";
 String longitude = "";
 String latitude = "";
 
-//String Local ="https://www.google.com.br/maps/@$latitude,$longitude";
-String local =
-    'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+String local = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
 
 _launchURL() async {
   const url = 'http://cvvweb.mysuite1.com.br/client/chatan.php?h=&inf=&lfa=';
@@ -41,20 +36,18 @@ void _sendSMS(String message, List<String> recipents, context) async {
     print(onError);
   });
 
-  print(_result);
 }
 
 Future<void> share() async {
   await FlutterShare.share(
-      title: 'Example share',
+      title: 'Minha Localização',
       text: '$message',
       linkUrl: '$local',
-      chooserTitle: 'Example Chooser Title');
+      chooserTitle: 'Minha Localização');
 }
 
 _getCurrentLocation() async {
   Position _currentPosition;
-  print("entrei na localziacao");
 
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
 
