@@ -72,7 +72,7 @@ class DrawerTile extends StatelessWidget {
           if(page == 3){
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Select()));
+                MaterialPageRoute(builder: (context) => relatorio()));
           }
   },
         child: Container(
