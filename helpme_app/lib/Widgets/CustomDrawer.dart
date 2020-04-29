@@ -7,32 +7,16 @@ import 'package:helpme_app/Screens/login_screen.dart';
 import 'package:helpme_app/Title/DrawerTitle.dart';
 import 'package:scoped_model/scoped_model.dart';
 String queryName;
-/*pegaID()async{
-  FirebaseUser user = await FirebaseAuth.instance.currentUser();
-  queryName = await Firestore.instance
-      .collection('users')
-      .document(user.uid)
-      .get()
-      .then((DocumentSnapshot) =>
-  (DocumentSnapshot.data['name'].toString()));
-}*/
 
 class CustomDrawer extends StatelessWidget {
-
-
   final PageController  pageController;
   CustomDrawer(this.pageController);
 
   @override
   Widget build(BuildContext context) {
-    /*pegaID();*/
-
-
     Widget _buildDrawerBack() => Container(
       decoration: BoxDecoration(
-
         gradient: LinearGradient(
-
             colors: [
               Color.fromARGB(255, 203, 236, 241),
               Colors.red],
@@ -42,11 +26,8 @@ class CustomDrawer extends StatelessWidget {
       ),
     );
     return Drawer(
-
       child: Stack(
-
         children: <Widget>[
-
           ListView(padding: EdgeInsets.zero, children: <Widget>[
             Container(
                 color: Color.fromRGBO(119, 1, 108, 1),
@@ -55,7 +36,6 @@ class CustomDrawer extends StatelessWidget {
                 height: 170.0,
                 child: Stack(
                   children: <Widget>[
-
                     Positioned(
                       top: 18.0,
                       left: 18.0,
@@ -73,13 +53,10 @@ class CustomDrawer extends StatelessWidget {
                       bottom: 0.0,
                       child: ScopedModelDescendant<UserModel>(
                         builder: (context, child, model){
-
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-
                               Text(
-
                                 "Olá, ${!model.isLoggedIn() ? "" :model.userData["name"]}",
                                 style: TextStyle(
                                     fontSize: 18.0, fontWeight: FontWeight.bold,color: Colors.white),
@@ -114,26 +91,11 @@ class CustomDrawer extends StatelessWidget {
               //child: Text('Drawer Header'),
               //decoration: BoxDecoration(color: Colors.greenAccent),
             ),
-
             Divider(),
-
             DrawerTile(Icons.home,"Início",pageController,0),
             DrawerTile(Icons.add_call,"Numeros SOS",pageController,1),
             DrawerTile(Icons.tag_faces,"Mensagens pra Você",pageController,2),
-            DrawerTile(Icons.tag_faces,"select",pageController,3),
-            /*ListTile(
-              title: Text('Item 1'),
-              onTap: () {
-                ;
-                //Navigator.pop(context); - este item chama a proxima tela
-              },
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Navigator.pop(context); item que chama a prox tela
-              },
-            ),*/
+            //DrawerTile(Icons.assessment,"Relatório",pageController,3), FUNCAO ADM
             _buildDrawerBack(),
           ]),
         ],

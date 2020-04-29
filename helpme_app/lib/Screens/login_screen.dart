@@ -6,7 +6,9 @@ import 'package:helpme_app/Screens/singup_screen.dart';
 import 'package:helpme_app/Widgets/CustomDrawer.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+import 'cellnumber_srceen.dart';
 import 'home_screen.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -14,17 +16,15 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
-
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color.fromRGBO(252, 239, 246, 1),
-      key: _scaffoldKey,
+        key: _scaffoldKey,
         appBar: GradientAppBar(
           title: Text("Entrar"),
           centerTitle: true,
@@ -79,25 +79,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.centerRight,
                     child: FlatButton(
                       onPressed: () {
-                        if(_emailController.text.isEmpty){
-                        _scaffoldKey.currentState.showSnackBar(
-                            SnackBar(content: Text("Insira seu Email para Recuperação"),
-                              backgroundColor: Colors.redAccent,
-                              duration: Duration(seconds: 2),
-                            )
-                        );
-                        }
-                        else{
+                        if (_emailController.text.isEmpty) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text("Insira seu Email para Recuperação"),
+                            backgroundColor: Colors.redAccent,
+                            duration: Duration(seconds: 2),
+                          ));
+                        } else {
                           model.recoverPass(_emailController.text);
-                        _scaffoldKey.currentState.showSnackBar(
-                        SnackBar(content: Text("Verifique seu E-email"),
-                        backgroundColor: Theme.of(context).primaryColor,
-                        duration: Duration(seconds: 2),
-                        )
-                        );
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text("Verifique seu E-email"),
+                            backgroundColor: Theme.of(context).primaryColor,
+                            duration: Duration(seconds: 2),
+                          ));
                         }
-
-
                       },
                       child: Text(
                         "Esqueci minha senha",
@@ -119,39 +114,37 @@ class _LoginScreenState extends State<LoginScreen> {
                       textColor: Colors.white,
                       color: Color.fromRGBO(165, 88, 157, 1),
                       onPressed: () async {
-                      if(await DataConnectionChecker().hasConnection == true) {
-                        if (_formkey.currentState.validate()) {}
-                        model.signIn(
-                          email: _emailController.text,
-                          pass: _passController.text,
-                          onSuccess: _onSuccess,
-                          onFail: _onFail,
-                        );
-                      }
-                      else{
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            // return object of type Dialog
-                            return AlertDialog(
-                              title: new Text("Sem conexão com a internet!"),
-                              content: new Text(
-                                  "Por Favor, Conecte com a internet para Logar!"),
-                              actions: <Widget>[
-                                // usually buttons at the bottom of the dialog
-                                new FlatButton(
-                                  child: new Text("OK"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-
-                      }
+                        if (await DataConnectionChecker().hasConnection ==
+                            true) {
+                          if (_formkey.currentState.validate()) {}
+                          model.signIn(
+                            email: _emailController.text,
+                            pass: _passController.text,
+                            onSuccess: _onSuccess,
+                            onFail: _onFail,
+                          );
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              // return object of type Dialog
+                              return AlertDialog(
+                                title: new Text("Sem conexão com a internet!"),
+                                content: new Text(
+                                    "Por Favor, Conecte com a internet para Logar!"),
+                                actions: <Widget>[
+                                  // usually buttons at the bottom of the dialog
+                                  new FlatButton(
+                                    child: new Text("OK"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                       },
                     ),
                   ),
@@ -163,28 +156,24 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onSuccess() {
-    _scaffoldKey.currentState.showSnackBar(
-        SnackBar(content: Text("Usuário autenticado com sucesso!"),
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 3),
-        )
-    );
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text("Usuário autenticado com sucesso!"),
+      backgroundColor: Colors.green,
+      duration: Duration(seconds: 3),
+    ));
     Future.delayed(const Duration(seconds: 2), () {
-    Navigator.of(context).pop();
+      getNumbers();
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()));
     });
   }
 
-
   void _onFail() {
-    _scaffoldKey.currentState.showSnackBar(
-        SnackBar(content: Text("Falha ao Logar!"),
-          backgroundColor: Colors.redAccent,
-          duration: Duration(seconds: 2),
-        )
-    );
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text("Falha ao Logar!"),
+      backgroundColor: Colors.redAccent,
+      duration: Duration(seconds: 2),
+    ));
   }
-  }
-
-
-
-
+}

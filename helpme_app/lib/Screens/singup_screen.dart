@@ -2,8 +2,6 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:helpme_app/Models/user_model.dart';
-import 'package:helpme_app/Screens/home_screen.dart';
-import 'package:helpme_app/Widgets/CustomDrawer.dart';
 import 'package:mask_shifter/mask_shifter.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -24,9 +22,6 @@ class _SingUpScreenState extends State<SingUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-
-    //final _pageController = PageController();
     return Scaffold(
       key: _scaffoldKey,
         appBar: GradientAppBar(
@@ -35,7 +30,6 @@ class _SingUpScreenState extends State<SingUpScreen> {
           backgroundColorStart: Color.fromRGBO(165, 88, 157, 1),
           backgroundColorEnd: Color.fromRGBO(119, 1, 108, 1),
         ),
-        //drawer: CustomDrawer(_pageController),
         body:
         ScopedModelDescendant<UserModel>(builder: (context, child, model) {
 
@@ -103,9 +97,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                     color: Color.fromRGBO(165, 88, 157, 1),
                     onPressed: () async {
                       if(await DataConnectionChecker().hasConnection == true){
-
-
-                      if (_formkey.currentState.validate()) {
+                        if (_formkey.currentState.validate()) {
 
                         Map<String, dynamic> userData = {
                           "name": _nameController.text,

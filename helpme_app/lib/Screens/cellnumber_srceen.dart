@@ -17,14 +17,6 @@ String queryN4;
 String queryN5;
 bool isLoadingCell = false;
 
-Future<Null>test2() async {
-  print("begin");
-
-    getNumbers();
-
-
-  print('end');
-}
 
 Future<Null> getNumbers() async {
   isLoadingCell = true;
@@ -74,12 +66,8 @@ Future<Null> getNumbers() async {
       .then((DocumentSnapshot) =>
           (DocumentSnapshot.data['numberFive'].toString()));
   isLoadingCell = false;
-
-
 }
-teste1(){
-  test2();
-}
+
 
 
 class CellNumber extends StatefulWidget {
@@ -105,7 +93,7 @@ class _CellNumberState extends State<CellNumber> {
 
   @override
   Widget build(BuildContext context) {
-teste1();
+
 
 
 

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_correios/flutter_correios.dart';
@@ -9,12 +8,8 @@ import 'package:flutter/material.dart';
 
 class UserModel extends Model {
   FirebaseAuth _auth = FirebaseAuth.instance;
-
   FirebaseUser firebaseUser;
   Map<String, dynamic> userData = Map();
-
-  //final _scaffoldKey = GlobalKey<ScaffoldState>();
-
   bool isLoading = false;
   bool isLoadingCell = false;
 
@@ -37,17 +32,14 @@ class UserModel extends Model {
     String user = firebaseUser.uid;
     try {
       final databaseReference = Firestore.instance;
-      databaseReference
-          .collection('address')
-          .document(user)
-          .setData({
+      databaseReference.collection('address').document(user).setData({
         //"CEP": CEP,
         "ESTADO": estado,
         "CIDADE": cidade,
         "BAIRRO": bairro,
       });
 
-     /* final databaseReference = Firestore.instance;
+      /* final databaseReference = Firestore.instance;
       databaseReference
           .collection('users')
           .document(user)
@@ -60,7 +52,6 @@ class UserModel extends Model {
         "BAIRRO": bairro,
       });
       */
-
 
     } catch (e) {
       print("erro ao salvar end: $e");
@@ -78,7 +69,10 @@ class UserModel extends Model {
       @required VoidCallback onFail}) {
     isLoading = true;
     notifyListeners();
-    _auth.createUserWithEmailAndPassword(email: userData["email"], password: pass).then((authResult) async {
+    _auth
+        .createUserWithEmailAndPassword(
+            email: userData["email"], password: pass)
+        .then((authResult) async {
       firebaseUser = authResult.user;
       await _saveUserData(userData);
       anddress(cep);

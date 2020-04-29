@@ -3,28 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:helpme_app/Screens/cellnumber_srceen.dart';
 import 'package:helpme_app/Screens/home_screen.dart';
 import 'package:helpme_app/Screens/message.dart';
-import 'package:helpme_app/Screens/select.dart';
-import 'package:helpme_app/Screens/singup_screen.dart';
+import 'package:helpme_app/Screens/report.dart';
+
 class DrawerTile extends StatelessWidget {
   final IconData icon;
   final String text;
   final PageController controller;
   final int page;
-  DrawerTile(this.icon, this.text, this.controller, this.page);
 
+  DrawerTile(this.icon, this.text, this.controller, this.page);
   @override
   Widget build(BuildContext context) {
-
-
     return Material(
-
       color: Colors.transparent,
       child: InkWell(
         onTap: () async {
-
           Navigator.of(context).pop();
-
-
           //AQUI CHAMA OS ITENS DO DRAWER
           if(page == 0){
             Navigator.push(
@@ -68,12 +62,12 @@ class DrawerTile extends StatelessWidget {
             );
           }
           }
-
           if(page == 3){
             Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => relatorio()));
           }
+
   },
         child: Container(
           height: 60.0,
@@ -94,12 +88,8 @@ class DrawerTile extends StatelessWidget {
                     fontSize: 16.0,
                     color: Colors.black
                 ),
-
               ),
-
-
             ],
-
           ),
         ),
       ),
