@@ -95,7 +95,7 @@ class CustomDrawer extends StatelessWidget {
             DrawerTile(Icons.home,"Início",pageController,0),
             DrawerTile(Icons.add_call,"Numeros SOS",pageController,1),
             DrawerTile(Icons.tag_faces,"Mensagens pra Você",pageController,2),
-            //DrawerTile(Icons.assessment,"Relatório",pageController,3), FUNCAO ADM
+            DrawerTile(Icons.assessment,"Relatório",pageController,3), //FUNCAO ADM
             _buildDrawerBack(),
           ]),
         ],

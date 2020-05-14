@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_dialog/FancyGif.dart';
 import 'package:fancy_dialog/fancy_dialog.dart';
@@ -8,6 +10,7 @@ import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:helpme_app/Models/user_model.dart';
 import 'package:mask_shifter/mask_shifter.dart';
 import 'package:scoped_model/scoped_model.dart';
+
 
 class relatorio extends StatefulWidget {
   @override
@@ -49,12 +52,15 @@ class _report extends State<relatorio> {
             _valueNeigh == false) {
           if (state == element.data['ESTADO']) {
             cont++;
+            city = "";
+            neigh = '';
           }
         }
         if (_valueState == true && _valueCity == true && _valueNeigh == false) {
           if (state == element.data['ESTADO'] &&
               city == element.data['CIDADE']) {
             cont++;
+            neigh = '';
           }
         }
         if (_valueState == true && _valueCity == true && _valueNeigh == true) {
@@ -70,6 +76,7 @@ class _report extends State<relatorio> {
 
   @override
   Widget build(BuildContext context) {
+
     //final _pageController = PageController();
     return Scaffold(
         key: _scaffoldKey,
@@ -144,16 +151,83 @@ class _report extends State<relatorio> {
                         if (_formkey.currentState.validate()) {
                           cont = 0;
                           String cep = _cepController.text;
+                          _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                            duration: new Duration(seconds: 2),
+                            content: new Row(
+                              children: <Widget>[
+                                new CircularProgressIndicator(),
+                                new Text("  please wait...")
+                              ],
+                            ),
+                          ));
                           await anddress(cep);
-                          showDialog(
+                          if (_valueState == false &&
+                              _valueCity == true &&
+                              _valueNeigh == false) {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) => FancyDialog(
+                                      title: "Ops!",
+                                      descreption:
+                                          " Você não pode selecionar cidade sem ter selecionado o estado ",
+                                      gifPath: FancyGif.MOVE_FORWARD,
+                                    ));
+                          }
+                          if (_valueState == false &&
+                              _valueCity == true &&
+                              _valueNeigh == true) {
+                            showDialog(
                               context: context,
                               builder: (BuildContext context) => FancyDialog(
-                                    title: "Relatório de Cadastro",
-                                    descreption:
-                                        "incidência conforme os filtros selecionados:\n"
-                                        "$cont ",
-                                    gifPath: FancyGif.CHECK_MAIL,
-                                  ));
+                                title: "Ops!",
+                                descreption:
+                                    " Você não pode selecionar cidade e bairro sem ter selecionado o estado ",
+                                gifPath: FancyGif.MOVE_FORWARD,
+                              ),
+                            );
+                          }
+
+                          if (_valueState == false &&
+                              _valueCity == false &&
+                              _valueNeigh == true) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => FancyDialog(
+                                title: "Ops!",
+                                descreption:
+                                " Você não pode selecionar bairro sem ter selecionado o cidade e estado antes",
+                                gifPath: FancyGif.MOVE_FORWARD,
+                              ),
+                            );
+                          }
+
+                          if (_valueState == true &&
+                              _valueCity == false &&
+                              _valueNeigh == true) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => FancyDialog(
+                                title: "Ops!",
+                                descreption:
+                                " Você não pode selecionar bairro e estado sem ter selecionado a cidade antes",
+                                gifPath: FancyGif.MOVE_FORWARD,
+                              ),
+                            );
+                          }
+
+                          else if(_valueState == true) {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) => FancyDialog(
+                                      title: "Relatório!",
+                                      descreption: "Filtros Selecionados:"
+                                          "\n$state, "
+                                          "$city\n"
+                                          "$neigh\n"
+                                          "Incidência: $cont ",
+                                      gifPath: FancyGif.CHECK_MAIL,
+                                    ));
+                          }
                         }
                       }),
                 ),

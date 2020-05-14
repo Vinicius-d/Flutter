@@ -72,7 +72,9 @@ class HomePage extends StatelessWidget {
   final _pageController = PageController();
 
   @override
+
   Widget build(BuildContext context) {
+
     var CallConect = OneSignalConnect();
     CallConect.initOneSignal();
 
@@ -206,31 +208,32 @@ class HomePage extends StatelessWidget {
                           FirebaseUser user =
                               await FirebaseAuth.instance.currentUser();
                           List<String> recipents = [];
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (BuildContext context) {
-                              return Dialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                elevation: 30.0,
-                                backgroundColor: Colors.blue,
-                                child: new Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    new CircularProgressIndicator(
-                                      backgroundColor: Colors.amber,
-                                      strokeWidth: 10,
-                                    ),
-                                    new Text("   ENVIANDO MENSAGEM!"),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
+
 
                           if (user != null) {
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return Dialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  elevation: 30.0,
+                                  backgroundColor: Colors.blue,
+                                  child: new Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      new CircularProgressIndicator(
+                                        backgroundColor: Colors.amber,
+                                        strokeWidth: 10,
+                                      ),
+                                      new Text("   ENVIANDO MENSAGEM!"),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
                             print("USUSARIO LOGADO");
 
                             final queryN1 = await Firestore.instance
@@ -317,11 +320,8 @@ class HomePage extends StatelessWidget {
                                     new FlatButton(
                                       child: new Text("OK"),
                                       onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LoginScreen()));
+                                        Navigator.of(context).pop();
+
                                       },
                                     ),
                                   ],
@@ -358,7 +358,32 @@ class HomePage extends StatelessWidget {
                           style: BorderStyle.solid,
                           width: 80)),
                   onPressed: () async {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          elevation: 30.0,
+                          backgroundColor: Color.fromRGBO(252, 239, 246, 1),
+                          child: new Row(
+
+                            children: [
+
+                              new CircularProgressIndicator(
+                                backgroundColor: Color.fromRGBO(119, 1, 108, 1),
+                                strokeWidth: 10,
+                              ),
+                              new Text("   Aguarde estamos gerando sua localização"),
+                            ],
+                          ),
+                        );
+                      },
+                    );
                     await _getCurrentLocation();
+                    Navigator.of(context, rootNavigator: true).pop();
                     share();
                   },
                 ),
