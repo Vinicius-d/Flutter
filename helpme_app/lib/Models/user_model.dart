@@ -39,20 +39,6 @@ class UserModel extends Model {
         "BAIRRO": bairro,
       });
 
-      /* final databaseReference = Firestore.instance;
-      databaseReference
-          .collection('users')
-          .document(user)
-          .collection('address')
-          .document(user)
-          .setData({
-        //"CEP": CEP,
-        "ESTADO": estado,
-        "CIDADE": cidade,
-        "BAIRRO": bairro,
-      });
-      */
-
     } catch (e) {
       print("erro ao salvar end: $e");
     }

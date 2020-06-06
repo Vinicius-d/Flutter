@@ -11,7 +11,6 @@ import 'package:helpme_app/Models/user_model.dart';
 import 'package:mask_shifter/mask_shifter.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-
 class relatorio extends StatefulWidget {
   @override
   _report createState() => _report();
@@ -76,7 +75,6 @@ class _report extends State<relatorio> {
 
   @override
   Widget build(BuildContext context) {
-
     //final _pageController = PageController();
     return Scaffold(
         key: _scaffoldKey,
@@ -195,7 +193,7 @@ class _report extends State<relatorio> {
                               builder: (BuildContext context) => FancyDialog(
                                 title: "Ops!",
                                 descreption:
-                                " Você não pode selecionar bairro sem ter selecionado o cidade e estado antes",
+                                    " Você não pode selecionar bairro sem ter selecionado o cidade e estado antes",
                                 gifPath: FancyGif.MOVE_FORWARD,
                               ),
                             );
@@ -209,13 +207,11 @@ class _report extends State<relatorio> {
                               builder: (BuildContext context) => FancyDialog(
                                 title: "Ops!",
                                 descreption:
-                                " Você não pode selecionar bairro e estado sem ter selecionado a cidade antes",
+                                    " Você não pode selecionar bairro e estado sem ter selecionado a cidade antes",
                                 gifPath: FancyGif.MOVE_FORWARD,
                               ),
                             );
-                          }
-
-                          else if(_valueState == true) {
+                          } else if (_valueState == true) {
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) => FancyDialog(

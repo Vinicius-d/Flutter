@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helpme_app/Models/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -23,7 +24,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     return new SplashScreen(
         seconds: 3,
         navigateAfterSeconds: new AfterSplash(),
@@ -33,7 +36,7 @@ class _MyAppState extends State<MyApp> {
                 fontSize: 20,
                 color: Color.fromRGBO(1, 84, 164, 1),
                 fontWeight: FontWeight.w700)),
-        image: new Image.network('https://rs618.pbsrc.com/albums/tt265/davejarrett/smileys/animatedminiongifscream_zps09547991.gif~c200'),
+        //image: new Image.network('https://rs618.pbsrc.com/albums/tt265/davejarrett/smileys/animatedminiongifscream_zps09547991.gif~c200'),
         backgroundColor:  Color.fromRGBO(252, 239, 246, 1),
         styleTextUnderTheLoader: new TextStyle(),
         photoSize: 100.0,
